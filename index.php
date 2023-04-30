@@ -124,11 +124,49 @@ function an($an)
 
 echo an($arr_name);
 
+echo "<br>";
+
+$arr_num = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+
+var_dump($arr_num);
+
+echo "<hr>";
+
+$mahasiswa = [
+    [
+        "nama" => "Aldi Lukman",
+        "jurusan" => "Teknik Mesin",
+        "nomor" => "08132489893"
+    ],
+    [
+        "nama" => "Andra Kurniawa",
+        "jurusan" => "Teknik Industri",
+        "nomor" => "08212343243"
+    ]
+];
+
+
 ?>
 
-<html>
+!
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .kotak {
+            background-color: indianred;
+            margin: 20px;
+            display: inline;
+            padding: 5px 20px;
+        }
+
+        .clear {
+            margin: 30px 0;
+            clear: both;
+        }
+    </style>
     <title>PHP Native</title>
 </head>
 
@@ -159,6 +197,35 @@ echo an($arr_name);
         <input type="text" id="year" name="year">
         <button type="submit" name="submit">Submit</button>
     </form>
+    <hr>
+    <?php foreach ($arr_num as $ar) : ?>
+        <?php foreach ($ar as $a) : ?>
+            <div class="kotak"><?= $a ?></div>
+        <?php endforeach ?>
+        <div class="clear"></div>
+    <?php endforeach ?>
+    <hr>
+    <?php foreach ($mahasiswa as $mhs) : ?>
+        <ul>
+            <a href="index1.php?nama=<?php echo $mhs["nama"] ?>&jurusan=<?php echo $mhs["jurusan"] ?>&nomor=<?php echo $mhs["nomor"] ?>">
+                <li><?php echo $mhs["nama"] ?></li>
+            </a>
+        </ul>
+    <?php endforeach ?>
+    <hr>
+    <form method="post" action="index2.php">
+        <label for="nama">Nama : </label>
+        <input type="text" id="nama" name="nama">
+        <br>
+        <br>
+        <label for="asal">Asal : </label>
+        <input type="text" id="asal" name="asal">
+        <br>
+        <br>
+        <button type="submit" name="submit">Kirim</button>
+    </form>
+    <hr>
+    silahkan login sebagai admin <a href="login/login.php">login</a>
 </body>
 
 </html>
