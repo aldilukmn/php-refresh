@@ -1,7 +1,13 @@
 <?php
 
+require "functions.php";
+
 if (isset($_POST['login'])) {
-    if ($_POST['username'] == 'admin' && $_POST['password'] == 'admin') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $user = query("SELECT * FROM admin
+    WHERE username = '$username'")[0];
+    if ($user === 'admin') {
         header("Location: index.php");
         exit;
     } else {

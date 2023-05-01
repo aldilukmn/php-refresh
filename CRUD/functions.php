@@ -64,4 +64,52 @@ function ubah($data){
     return mysqli_affected_rows($db);
 }
 
+function registrasi($data){
+    GLOBAL $db;
+    $username = strtolower(stripslashes($data['username']));
+    $password = mysqli_real_escape_string($db, $data['password']);
+    $password1 = mysqli_real_escape_string($db, $data['password1']);
+
+    if ($password !== $password1) {
+        echo "
+        <script>
+            alert('Konfirmasi password tidak sesuai');
+            document.location.href = 'registrasi.php';
+        </script>
+        ";
+        exit;
+    }
+
+    if (trim($username == null || trim($password)) == null || trim($password1) == null) {
+        echo "
+        <script>
+            alert('Input tidak boleh kosong');
+            document.location.href = 'registrasi.php';
+        </script>
+        ";
+        exit;
+    }
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    $result = mysqli_query($db, "SELECT * FROM admin WHERE username = '$username'");
+
+    if (mysqli_fetch_assoc($result)) {
+        echo "
+        <script>
+            alert('Username sudah digunakan');
+            document.location.href = 'registrasi.php';
+        </script>
+        ";
+        exit;
+    }
+
+    $query = "INSERT INTO admin (username, password)
+                VALUES
+                ('$username', '$password')";
+
+    mysqli_query($db, $query);
+    return mysqli_affected_rows($db);
+}
+
 ?>

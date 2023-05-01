@@ -2,7 +2,14 @@
 
 require "functions.php";
 
-$mahasiswa = query("SELECT * FROM mahasiswa");
+if (isset($_POST['cari'])) {
+    $keyword = $_POST['keyword'];
+    $mahasiswa = query("SELECT * FROM mahasiswa
+                WHERE
+                nama LIKE '%$keyword%'");
+} else {
+    $mahasiswa = query("SELECT * FROM mahasiswa");
+}
 
 ?>
 
@@ -19,6 +26,11 @@ $mahasiswa = query("SELECT * FROM mahasiswa");
         <a href="tambah.php">
             <h3>Tambah Mahasiswa</h3>
         </a>
+        <form method="post">
+            <input type="text" name="keyword" placeholder="Cari ... " autocomplete="off">
+            <button type="submit" name="cari">Cari</button>
+        </form>
+        <br>
         <table border="1" cellspacing="0" cellpadding="10">
             <tr>
                 <th>No.</th>
