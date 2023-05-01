@@ -1,5 +1,12 @@
 <?php
 
+session_start();
+
+if(!$_SESSION['login']) {
+    header('Location: login.php');
+    exit;
+}
+
 require "functions.php";
 
 if (isset($_POST['cari'])) {
@@ -54,8 +61,8 @@ if (isset($_POST['cari'])) {
             </tr>
             <?php endforeach ?>
         </table>
-        <a href="login.php">
-            <h4>< Logout</h4>
+        <a href="keluar.php">
+            <h4>< Keluar</h4>
         </a>
     </body>
 </html>

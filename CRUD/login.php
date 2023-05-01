@@ -1,18 +1,29 @@
 <?php
 
+session_start();
+
+if(isset($_SESSION['login'])) {
+    header("Location: index.php");
+    exit;
+}
+
 require "functions.php";
 
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $user = query("SELECT * FROM admin
-    WHERE username = '$username'")[0];
-    if ($user === 'admin') {
-        header("Location: index.php");
-        exit;
-    } else {
-        $error = true;
+    $result = mysqli_query($db, "SELECT * FROM admin WHERE username = '$username'");
+    if (mysqli_num_rows($result) === 1) {
+        $data = mysqli_fetch_assoc($result);
+        $verif = password_verify($password, $data['password']);
+        if ($verif) {
+            $_SESSION['login'] = true;
+            header("Location: index.php");
+            exit;
+        }
     }
+
+    $error = true;
 }
 
 

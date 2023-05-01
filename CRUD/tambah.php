@@ -1,12 +1,19 @@
 <?php
 
+session_start();
+
+if(!$_SESSION['login']) {
+    header('Location: login.php');
+    exit;
+}
+
 require "functions.php";
 
 if (isset($_POST['tambah'])) {
     if (tambah($_POST) === 1) {
         echo "
         <script>
-            alert('Tambah berhasil ditambahkan');
+            alert('Data berhasil ditambahkan');
             document.location.href = 'index.php';
         </script>
         ";

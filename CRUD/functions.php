@@ -93,7 +93,7 @@ function registrasi($data){
     $password = password_hash($password, PASSWORD_DEFAULT);
 
     $result = mysqli_query($db, "SELECT * FROM admin WHERE username = '$username'");
-
+    
     if (mysqli_fetch_assoc($result)) {
         echo "
         <script>
